@@ -3,53 +3,43 @@ require 'spec_helper'
 describe "Static pages" do
   
   let(:base_title) { "Fitfolder" }
-  
+
+
+  subject { page }
+
   describe "Home page" do
-    it "should have the right title" do
-      visit '/static_pages/home'
-      page.should have_selector('title', :text => "Fitfolder | Home")
-    end
-    
-    it "should have the h1 'Welcome to Fitfolder'" do
-      visit '/static_pages/home'
-      page.should have_selector('h1', :text => 'Welcome to Fitfolder')
-    end
-  end
-  
-  describe "Help page" do
-    it "should have the right title" do
-      visit '/static_pages/help'
-      page.should have_selector('title', :text => "#{base_title} | Help")
-    end
-    
-    it "should have the h1 'Fitfolder - Get Help'" do
-      visit '/static_pages/help'
-      page.should have_selector('h1', :text => 'Fitfolder - Get Help')
-    end
-  end
-  
-  describe "About page" do
-    it "should have the right title" do
-      visit '/static_pages/about'
-      page.should have_selector('title', :text => "#{base_title} | About")
-    end
-    
-    it "should have the h1 'About Fitfolder'" do
-      visit '/static_pages/about'
-      page.should have_selector('h1', :text => 'About Fitfolder')
-    end
-  end
-  
-  describe "Contact page" do
-    it "should have the right title" do
-      visit '/static_pages/contact'
-      page.should have_selector('title', :text => "#{base_title} | Contact Us")
-    end
-    
-    it "should have the h1 'Contact Us'" do
-      visit '/static_pages/contact'
-      page.should have_selector('h1', :text => "Contact Us")
-    end
+    before { visit root_path }
+
+    it { should have_selector('h1',    text: 'Welcome to Fitfolder') }
+    it { should have_selector('title', text: full_title('')) }
+    it { should_not have_selector 'title', text: '|' }
   end
 
+  describe "Help page" do
+    before { visit help_path }
+
+    it { should have_selector('h1',    text: 'Help') }
+    it { should have_selector('title', text: full_title('Help')) }
+  end
+
+  describe "About page" do
+    before { visit about_path }
+
+    it { should have_selector('h1',    text: 'About Fitfolder') }
+    it { should have_selector('title', text: full_title('About')) }
+  end
+
+  describe "Contact page" do
+    before { visit contact_path }
+
+    it { should have_selector('h1',    text: 'Contact') }
+    it { should have_selector('title', text: full_title('Contact')) }
+  end
+
+  describe "News page" do
+    before { visit news_path }
+
+    it { should have_selector('h1',    text: 'News') }
+    it { should have_selector('title', text: full_title('News')) }
+  end
 end
